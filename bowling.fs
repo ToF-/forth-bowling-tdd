@@ -22,11 +22,11 @@ variable frame-limit
 : new-frame? ( -- f )
     frame-limit @ 0= ;
 
-: close-frame ( n -- )
+: open-frame ( n -- )
     last-roll !
     1 frame-limit ! ;
 
-: open-frame ( -- )
+: close-frame ( -- )
     0 frame-limit ! ;
 
 : register-strike ( -- )
@@ -41,14 +41,15 @@ variable frame-limit
         dup 10 = if
             drop
             register-strike
-        else
             close-frame
+        else
+            open-frame
         then
     else
         last-roll @ + 10 = if
             register-spare
         then
-        open-frame
+        close-frame
     then ;
 
 : add-roll ( n -- )
