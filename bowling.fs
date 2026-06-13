@@ -4,12 +4,14 @@ variable score
 variable bonus
 variable super
 variable last-roll
+variable frame-limit
 
 \ initialize game state
 : start
     0 score !
     0 bonus !
     0 super !
+    0 frame-limit !
     0 last-roll ! ;
 
 : collect-bonus ( n -- )
@@ -17,14 +19,25 @@ variable last-roll
     super @ bonus !
     0 super ! ;
 
+: new-frame? ( -- f )
+    frame-limit @ 0= ;
+
 : check-bonus ( n -- )
-    dup 10 = if
-        drop
-        1 bonus +!
-        1 super !
-    else last-roll @ + 10 = if
-        1 bonus !
-    then then ;
+    new-frame? if
+        dup 10 = if
+            drop
+            1 bonus +!
+            1 super !
+        else
+            last-roll !
+            1 frame-limit !
+        then
+    else
+        last-roll @ + 10 = if
+            1 bonus !
+        then
+        0 frame-limit !
+    then ;
 
 : add-roll ( n -- )
     dup collect-bonus

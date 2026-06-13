@@ -54,6 +54,13 @@ t{ ." strikes bonuses can accumulate" cr
     10 add-roll 10 add-roll 3 add-roll 2 add-roll
     final-score 43 ?s
 }t
+
+t{ ." strikes happens at a frame limit" cr
+    start
+    0 add-roll 10 add-roll 2 add-roll 3 add-roll
+    final-score 17 ?s
+}t
+
 tst-get-result
 cr
 ." tests:" swap . 
