@@ -1,10 +1,14 @@
 \ tests.fs
 
 require ffl/tst.fs
+require bowling.fs
 
+page
 t{
-     ." dummy test" cr
-     2 2 + 4 ?s
+     ." no rolls result in score of zero" cr
+     start
+     final-score
+     0 ?s
 }t
 
 tst-get-result
