@@ -11,7 +11,8 @@ variable last-roll
     0 last-roll ! ;
 
 : collect-bonus ( n -- )
-    bonus @ * score +! ;
+    bonus @ * score +!
+    0 bonus ! ;
 
 : check-bonus ( n -- )
     last-roll @ + 10 = if

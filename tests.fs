@@ -31,6 +31,12 @@ t{ ." any spare results in a bonus" cr
     final-score 12 ?s
 }t
 
+t{ ." bonus cancels once collected" cr
+    start
+    4 add-roll 6 add-roll 2 add-roll 1 add-roll
+    final-score 15 ?s
+}t
+
 tst-get-result
 cr
 ." tests:" swap . 
