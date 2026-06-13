@@ -28,7 +28,11 @@ variable frame-limit
 
 : open-frame ( -- )
     0 frame-limit ! ;
-    
+
+: register-strike ( -- )
+    1 bonus +!
+    1 super ! ;
+
 : check-bonus ( n -- )
     new-frame? if
         dup 10 = if
