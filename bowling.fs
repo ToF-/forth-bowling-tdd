@@ -1,9 +1,8 @@
 \ bowling.fs
 
 variable score
-variable bonus
-variable super
-variable frame
+variable bonus  \ 1: spare  5: strike 6: cumulated strikes
+variable frame  \ 0: new-frame {1…10}: open frame, last roll = value minus 1
 variable frame#
 
 \ initialize game state
@@ -13,26 +12,33 @@ variable frame#
     0 frame !
     0 frame# ! ;
 
+\ get bonus factor and update bonuses
 : bonus>>factor ( -- n )
     bonus @ dup 3 and
     swap 2/ 2/ bonus ! ;
 
+\ add bonus roll(s) to score
 : collect-bonus ( n -- )
     bonus>>factor * score +! ;
 
 : new-frame? ( -- f )
     frame @ 0= ;
 
+\ update frame with roll just played
 : open-frame ( n -- )
     1+ frame ! ;
 
+\ update frame to a new frame
 : close-frame ( -- )
     1 frame# +!
     0 frame ! ;
 
+\ sets the bonus factors after a strike :
+\ next roll increments, next next roll set to 1
 : register-strike ( -- )
     bonus @ 1+ 4 or bonus ! ;
 
+\ sets the bonus factor after a spare
 : register-spare ( -- )
     1 bonus ! ;
 
@@ -56,7 +62,7 @@ variable frame#
 
 : check-bonus ( n -- )
     new-frame? if
-        check-for-strike 
+        check-for-strike
     else
         check-for-spare
     then ;
