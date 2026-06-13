@@ -49,6 +49,11 @@ t{ ." strike results in two bonuses" cr
     final-score 20 ?s
 }t
 
+t{ ." strikes bonuses can accumulate" cr
+    start
+    10 add-roll 10 add-roll 3 add-roll 2 add-roll
+    final-score 43 ?s
+}t
 tst-get-result
 cr
 ." tests:" swap . 

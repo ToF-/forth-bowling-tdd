@@ -20,7 +20,7 @@ variable last-roll
 : check-bonus ( n -- )
     dup 10 = if
         drop
-        1 bonus !
+        1 bonus +!
         1 super !
     else last-roll @ + 10 = if
         1 bonus !
