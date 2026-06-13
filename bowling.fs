@@ -10,14 +10,15 @@ variable frame#
 : start
     0 score !
     0 bonus !
-    0 super !
     0 frame !
     0 frame# ! ;
 
+: bonus>>factor ( -- n )
+    bonus @ dup 3 and
+    swap 2/ 2/ bonus ! ;
+
 : collect-bonus ( n -- )
-    bonus @ * score +!
-    super @ bonus !
-    0 super ! ;
+    bonus>>factor * score +! ;
 
 : new-frame? ( -- f )
     frame @ 0= ;
@@ -30,8 +31,7 @@ variable frame#
     0 frame ! ;
 
 : register-strike ( -- )
-    1 bonus +!
-    1 super ! ;
+    bonus @ 1+ 4 or bonus ! ;
 
 : register-spare ( -- )
     1 bonus ! ;
