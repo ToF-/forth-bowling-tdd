@@ -4,15 +4,14 @@ variable score
 variable bonus
 variable super
 variable last-roll
-variable frame-limit
+variable frame
 
 \ initialize game state
 : start
     0 score !
     0 bonus !
     0 super !
-    0 frame-limit !
-    0 last-roll ! ;
+    0 frame ! ;
 
 : collect-bonus ( n -- )
     bonus @ * score +!
@@ -20,14 +19,13 @@ variable frame-limit
     0 super ! ;
 
 : new-frame? ( -- f )
-    frame-limit @ 0= ;
+    frame @ 0= ;
 
 : open-frame ( n -- )
-    last-roll !
-    1 frame-limit ! ;
+    1+ frame ! ;
 
 : close-frame ( -- )
-    0 frame-limit ! ;
+    0 frame ! ;
 
 : register-strike ( -- )
     1 bonus +!
@@ -35,6 +33,9 @@ variable frame-limit
 
 : register-spare ( -- )
     1 bonus ! ;
+
+: last-roll ( -- n )
+    frame @ 1- ;
 
 : check-bonus ( n -- )
     new-frame? if
@@ -46,7 +47,7 @@ variable frame-limit
             open-frame
         then
     else
-        last-roll @ + 10 = if
+        last-roll + 10 = if
             register-spare
         then
         close-frame
@@ -55,7 +56,6 @@ variable frame-limit
 : add-roll ( n -- )
     dup collect-bonus
     dup check-bonus
-    dup last-roll !
     score +!  ;
 
 : final-score ( -- n )
