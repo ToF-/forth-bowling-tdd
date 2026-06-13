@@ -33,8 +33,7 @@ variable frame-limit
     new-frame? if
         dup 10 = if
             drop
-            1 bonus +!
-            1 super !
+            register-strike
         else
             close-frame
         then
