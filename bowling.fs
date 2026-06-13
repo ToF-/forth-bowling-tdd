@@ -14,6 +14,9 @@ variable frame#
     0 frame !
     0 frame# ! ;
 
+15 constant roll-mask
+16 constant frame-mask
+
 \ get bonus factor and update bonuses
 : bonus>>factor ( -- n )
     bonus @
@@ -28,7 +31,7 @@ variable frame#
 
 \ update frame with roll just played
 : open-frame ( n -- )
-    1+ frame ! ;
+    frame-mask or frame ! ;
 
 \ update frame to a new frame
 : close-frame ( -- )
@@ -46,7 +49,7 @@ variable frame#
     1 bonus ! ;
 
 : last-roll ( -- n )
-    frame @ 1- ;
+    frame @ roll-mask and ;
 
 : check-for-strike ( n -- )
     dup 10 = if
