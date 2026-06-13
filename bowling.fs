@@ -33,6 +33,9 @@ variable frame-limit
     1 bonus +!
     1 super ! ;
 
+: register-spare ( -- )
+    1 bonus ! ;
+
 : check-bonus ( n -- )
     new-frame? if
         dup 10 = if
@@ -43,7 +46,7 @@ variable frame-limit
         then
     else
         last-roll @ + 10 = if
-            1 bonus !
+            register-spare
         then
         open-frame
     then ;
