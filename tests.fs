@@ -11,6 +11,15 @@ t{
      0 ?s
 }t
 
+t{   ." average rolls result in sum of rolls" cr
+    start
+    3 add-roll
+    6 add-roll
+    2 add-roll
+    4 add-roll
+    final-score 15 ?s
+}t
+
 tst-get-result
 cr
 ." tests:" swap . 
