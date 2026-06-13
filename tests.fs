@@ -61,6 +61,11 @@ t{ ." strikes happen at a frame limit" cr
     final-score 17 ?s
 }t
 
+t{ ." after ten frames roll are not added" cr
+    start
+    12 0 [do] 10 add-roll [loop]
+    final-score 300 ?s
+}t
 tst-get-result
 cr
 ." tests:" swap . 

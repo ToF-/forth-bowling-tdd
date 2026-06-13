@@ -3,15 +3,16 @@
 variable score
 variable bonus
 variable super
-variable last-roll
 variable frame
+variable frame#
 
 \ initialize game state
 : start
     0 score !
     0 bonus !
     0 super !
-    0 frame ! ;
+    0 frame !
+    0 frame# ! ;
 
 : collect-bonus ( n -- )
     bonus @ * score +!
@@ -25,6 +26,7 @@ variable frame
     1+ frame ! ;
 
 : close-frame ( -- )
+    1 frame# +!
     0 frame ! ;
 
 : register-strike ( -- )
@@ -59,10 +61,17 @@ variable frame
         check-for-spare
     then ;
 
+: within-game? ( -- f )
+    frame# @ 0 10 within ;
+
 : add-roll ( n -- )
     dup collect-bonus
     dup check-bonus
-    score +!  ;
+    within-game? if
+        score +!
+    else
+        drop
+    then ;
 
 : final-score ( -- n )
     score @ ;
