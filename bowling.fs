@@ -37,20 +37,26 @@ variable frame
 : last-roll ( -- n )
     frame @ 1- ;
 
+: check-for-strike ( n -- )
+    dup 10 = if
+        drop
+        register-strike
+        close-frame
+    else
+        open-frame
+    then ;
+
+: check-for-spare ( n -- )
+    last-roll + 10 = if
+        register-spare
+    then
+    close-frame ;
+
 : check-bonus ( n -- )
     new-frame? if
-        dup 10 = if
-            drop
-            register-strike
-            close-frame
-        else
-            open-frame
-        then
+        check-for-strike 
     else
-        last-roll + 10 = if
-            register-spare
-        then
-        close-frame
+        check-for-spare
     then ;
 
 : add-roll ( n -- )
