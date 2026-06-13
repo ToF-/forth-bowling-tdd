@@ -22,6 +22,13 @@ variable frame-limit
 : new-frame? ( -- f )
     frame-limit @ 0= ;
 
+: close-frame ( n -- )
+    last-roll !
+    1 frame-limit ! ;
+
+: open-frame ( -- )
+    0 frame-limit ! ;
+    
 : check-bonus ( n -- )
     new-frame? if
         dup 10 = if
@@ -29,14 +36,13 @@ variable frame-limit
             1 bonus +!
             1 super !
         else
-            last-roll !
-            1 frame-limit !
+            close-frame
         then
     else
         last-roll @ + 10 = if
             1 bonus !
         then
-        0 frame-limit !
+        open-frame
     then ;
 
 : add-roll ( n -- )
