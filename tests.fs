@@ -37,6 +37,12 @@ t{ ." bonus cancels once collected" cr
     final-score 15 ?s
 }t
 
+t{ ." several spares result in several bonuses" cr
+    start
+    4 add-roll 6 add-roll 5 add-roll 5 add-roll 3 add-roll 7 add-roll 1 add-roll
+    final-score 31 5 + 3 + 1 + ?s
+}t
+
 tst-get-result
 cr
 ." tests:" swap . 
