@@ -21,10 +21,14 @@ t{ ." average rolls result in sum of rolls" cr
 
 t{ ." spare results in a bonus" cr
     start
-    3 add-roll
-    7 add-roll
-    3 add-roll
+    3 add-roll 7 add-roll 3 add-roll
     final-score 16 ?s
+}t
+
+t{ ." any spare results in a bonus" cr
+    start
+    5 add-roll 5 add-roll 1 add-roll
+    final-score 12 ?s
 }t
 
 tst-get-result
